@@ -1,0 +1,6 @@
+.DS_Store
+score.json
+*.swp
+/__pycache__
+/.vim
+
