@@ -51,16 +51,16 @@ class Snake:
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
     def killed(self):
-        """Kill the snake if it's head touches boundary or it's own body."""
+        """If snake's head touches boundary return (True, True) and if head touches it's body return (True, False)."""
         if self.head_y == self.setting.start_y or self.head_y == self.setting.height-1:
-            return True
+            return (True, True)
         if self.head_x == self.setting.start_x or self.head_x == self.setting.width-1:
-            return True
+            return (True, True)
 
         if self.snake_pos[0] in self.snake_pos[1:]:
-            return True
+            return (True, False)
 
-        return False
+        return (False, False)
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 

@@ -31,6 +31,7 @@ class AsciiSnake:
 
     def run(self):
         """Run the game."""
+        killed = False
         while True:
             self.setting.draw_score_and_title(self.win, self.score)
             self.win.timeout(self.setting.get_speed(len(self.snake.snake_pos)))
@@ -40,15 +41,25 @@ class AsciiSnake:
 
             self.update()
 
-            if(self.snake.killed()):
+            killed, wall = self.snake.killed() # get killed and wall values
+
+            # if the snake is killed exit the game
+            if killed:
                 break
 
         curses.endwin() # decommission the window
         self.setting.write_highest_score() # write the highest score in the file
 
+        if killed and wall:
+            print("\nHEAD TOUCHED THE WALL!!!\n")
+        elif killed and not wall:
+            print("\nHEAD TOUCHED THE BODY!!!\n")
+        elif not killed:
+            print("\nGAME QUITTED!!!\n")
+
         # print the score and highest score on the terminal
-        print(f"Your Score {self.score}")
-        print(f"Highest Score {self.setting.highest_score}")
+        print(f"Your Score: {self.score}")
+        print(f"Highest Score: {self.setting.highest_score}")
         
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
