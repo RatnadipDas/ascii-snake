@@ -71,7 +71,7 @@ class Setting:
             
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-    def set_speed(self, snake_len):
+    def get_speed(self, snake_len):
         """Set the speed relative to length of the snake."""
         return max([self.speed_min_max[0], self.speed_min_max[1] - snake_len])
 

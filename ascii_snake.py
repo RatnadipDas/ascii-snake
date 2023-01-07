@@ -33,7 +33,7 @@ class AsciiSnake:
         """Run the game."""
         while True:
             self.setting.draw_score_and_title(self.win, self.score)
-            self.win.timeout(self.setting.set_speed(len(self.snake.snake_pos)))
+            self.win.timeout(self.setting.get_speed(len(self.snake.snake_pos)))
             self.get_event()
             if(self.quit()):
                 break
