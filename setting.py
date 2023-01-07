@@ -25,8 +25,6 @@ class Setting:
         self.start_x = 0 # starting x position
         self.start_y = 0 # starting y position
 
-        # game properties
-        
         # minimum and maximum speed of the game
         self.speed_min_max = (100, 150)
 
@@ -35,6 +33,14 @@ class Setting:
 
         # if highest score file exist get it
         self.highest_score = self.get_highest_score()
+
+        # screen codes for curses
+        self.ESC = 27
+        self.W = 119
+        self.A = 97
+        self.S = 115
+        self.D = 100
+        self.SPACE = 32
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -80,4 +86,3 @@ class Setting:
     def get_speed(self, snake_len):
         """Set the speed relative to length of the snake."""
         return max([self.speed_min_max[0], self.speed_min_max[1] - snake_len])
-

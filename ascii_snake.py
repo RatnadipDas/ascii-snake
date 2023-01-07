@@ -1,6 +1,7 @@
 import curses
 from setting import Setting
 from snake import Snake
+from open_close_win import OpenClose
 
 class AsciiSnake:
     """Overall class defining behavior and logic of the game."""
@@ -20,18 +21,22 @@ class AsciiSnake:
         self.win.border() # give border to the window
         self.win.nodelay(True) # don't wait for user event
 
-        # key setup
-        self.ESC = 27 # escape key code for  curses
-
         # game logic setup
         self.score = 0 # initial score of the game
         self.cur_key = curses.KEY_RIGHT # initial movement direction
+        self.pause = False # initialize pause to False
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
     def run(self):
         """Run the game."""
+
+        # show the opening window
+        self.open_close = OpenClose()
+        self.open_close.start()
+
         killed = False
+
         while True:
             self.setting.draw_score_and_title(self.win, self.score)
             self.win.timeout(self.setting.get_speed(len(self.snake.snake_pos)))
@@ -50,17 +55,17 @@ class AsciiSnake:
         curses.endwin() # decommission the window
         self.setting.write_highest_score() # write the highest score in the file
 
+        # end the game by showing ending window
         if killed and wall:
-            print("\nHEAD TOUCHED THE WALL!!!\n")
+            msg = "HEAD TOUCHED THE WALL!!!"
+            self.open_close.end(self.score, self.setting.highest_score, msg)
         elif killed and not wall:
-            print("\nHEAD TOUCHED THE BODY!!!\n")
+            msg = "HEAD TOUCHED THE BODY!!!"
+            self.open_close.end(self.score, self.setting.highest_score, msg)
         elif not killed:
-            print("\nGAME QUITTED!!!\n")
+            msg = "GAME QUITTED!!!"
+            self.open_close.end(self.score, self.setting.highest_score, msg)
 
-        # print the score and highest score on the terminal
-        print(f"Your Score: {self.score}")
-        print(f"Highest Score: {self.setting.highest_score}")
-        
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
     def get_event(self):
@@ -70,7 +75,7 @@ class AsciiSnake:
         # if user pressed no key then the current key is the previous key else it is new key
         self.cur_key = self.event if self.event != -1 else self.prev_key
 
-        if self.cur_key not in [curses.KEY_LEFT, curses.KEY_RIGHT, curses.KEY_UP, curses.KEY_DOWN, self.ESC]:
+        if self.cur_key not in [curses.KEY_LEFT, curses.KEY_RIGHT, curses.KEY_UP, curses.KEY_DOWN, self.setting.W, self.setting.A, self.setting.S, self.setting.D, self.setting.ESC, self.setting.SPACE]:
             self.cur_key = self.prev_key
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,12 +104,12 @@ class AsciiSnake:
             self.snake.draw_snake(self.win)
 
         self.win.addch(self.setting.food[0], self.setting.food[1], self.setting.food_char) # draw food on the window
-        
+
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
     def quit(self):
         """Quit the game if ESC key is pressed."""
-        if self.cur_key == self.ESC:
+        if self.cur_key == self.setting.ESC:
             return True
         
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -112,4 +117,3 @@ class AsciiSnake:
 if __name__ == '__main__':
     snake = AsciiSnake()
     snake.run()
-

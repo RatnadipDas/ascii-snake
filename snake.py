@@ -15,31 +15,33 @@ class Snake:
         self.head_y = self.snake_pos[0][0]
         self.head_x = self.snake_pos[0][1]
 
+        self.play_pause() # play or pause the snake
+
         while True:
-            if self.ascii_snake.cur_key == curses.KEY_UP:
-                if self.ascii_snake.prev_key != curses.KEY_DOWN:
+            if self.ascii_snake.cur_key == curses.KEY_UP or self.ascii_snake.cur_key == self.setting.W:
+                if self.ascii_snake.prev_key != curses.KEY_DOWN and self.ascii_snake.prev_key != self.setting.S:
                     self.head_y -= 1
                     break
                 else:
                     self.ascii_snake.cur_key = self.ascii_snake.prev_key
                     continue
 
-            if self.ascii_snake.cur_key == curses.KEY_DOWN:
-                if self.ascii_snake.prev_key != curses.KEY_UP:
+            if self.ascii_snake.cur_key == curses.KEY_DOWN or self.ascii_snake.cur_key == self.setting.S:
+                if self.ascii_snake.prev_key != curses.KEY_UP and self.ascii_snake.prev_key != self.setting.W:
                     self.head_y += 1
                     break
                 else:
                     self.ascii_snake.cur_key = self.ascii_snake.prev_key
                     continue
-            if self.ascii_snake.cur_key == curses.KEY_LEFT:
-                if self.ascii_snake.prev_key != curses.KEY_RIGHT:
+            if self.ascii_snake.cur_key == curses.KEY_LEFT or self.ascii_snake.cur_key == self.setting.A:
+                if self.ascii_snake.prev_key != curses.KEY_RIGHT and self.ascii_snake.prev_key != self.setting.D:
                     self.head_x -= 1
                     break
                 else:
                     self.ascii_snake.cur_key = self.ascii_snake.prev_key
                     continue
-            if self.ascii_snake.cur_key == curses.KEY_RIGHT:
-                if self.ascii_snake.prev_key != curses.KEY_LEFT:
+            if self.ascii_snake.cur_key == curses.KEY_RIGHT or self.ascii_snake.cur_key == self.setting.D:
+                if self.ascii_snake.prev_key != curses.KEY_LEFT and self.ascii_snake.prev_key != self.setting.A:
                     self.head_x += 1
                     break
                 else:
@@ -64,8 +66,20 @@ class Snake:
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
+    def play_pause(self):
+        """If SPACE key is pressed pause the snake."""
+        if self.ascii_snake.cur_key == self.setting.SPACE:
+            self.ascii_snake.cur_key = self.ascii_snake.prev_key
+            self.ascii_snake.pause = True
+
+        while self.ascii_snake.pause:
+            event = self.ascii_snake.win.getch() # get the next character and refresh the screen
+            if event == self.setting.SPACE:
+                self.ascii_snake.pause = False
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+
     def draw_snake(self, win):
         """Draw snake body on the window."""
         for body_seg in self.snake_pos:
             win.addch(body_seg[0], body_seg[1], self.setting.snake_body_char)
-
