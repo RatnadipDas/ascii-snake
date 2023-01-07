@@ -34,7 +34,7 @@ class Setting:
         # if highest score file exist get it
         self.highest_score = self.get_highest_score()
 
-        # screen codes for curses
+        # key codes for curses
         self.ESC = 27
         self.W = 119
         self.A = 97
