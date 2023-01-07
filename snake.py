@@ -1,5 +1,4 @@
 import curses
-from setting import Setting
 
 class Snake:
     """Overall class to calculate and update snake positions."""
