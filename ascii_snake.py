@@ -87,7 +87,7 @@ class AsciiSnake:
             # draw snake's body segments on the window
             self.snake.draw_snake(self.win)
 
-        self.win.addch(self.setting.food[0], self.setting.food[1], '*') # draw food on the window
+        self.win.addch(self.setting.food[0], self.setting.food[1], self.setting.food_char) # draw food on the window
         
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 

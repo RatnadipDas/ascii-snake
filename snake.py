@@ -67,5 +67,5 @@ class Snake:
     def draw_snake(self, win):
         """Draw snake body on the window."""
         for body_seg in self.snake_pos:
-            win.addch(body_seg[0], body_seg[1], '#')
+            win.addch(body_seg[0], body_seg[1], self.setting.snake_body_char)
 

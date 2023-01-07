@@ -13,6 +13,12 @@ class Setting:
         # score file name
         self.score_file = 'score.json'
 
+        # snake body char
+        self.snake_body_char = '#'
+
+        # food char
+        self.food_char = 'o'
+
         # game display properties
         self.width = 60 # width of the display
         self.height = 30 # height of the display
