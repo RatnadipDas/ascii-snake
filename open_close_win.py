@@ -5,6 +5,8 @@ class OpenClose:
     """Class to show starting and ending window."""
     def __init__(self):
         self.START_MSG = """
+                ASCII SNAKE
+
             Keys:
 
                 W - UP
@@ -20,7 +22,7 @@ class OpenClose:
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-    def start(self):
+    def open(self):
         """Display the control keys."""
         curses.initscr()
         win = curses.newwin(self.setting.height, self.setting.width, self.setting.start_y, self.setting.start_x) # create a window
@@ -38,9 +40,11 @@ class OpenClose:
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-    def end(self, score, highest_score, msg):
+    def close(self, score, highest_score, msg):
         """Display the score, highest score and reason for game termination."""
         END_MSG = f"""
+                    ASCII SNAKE
+
             {msg}
 
             Your Score: {score}

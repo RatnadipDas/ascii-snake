@@ -33,7 +33,7 @@ class AsciiSnake:
 
         # show the opening window
         self.open_close = OpenClose()
-        self.open_close.start()
+        self.open_close.open()
 
         killed = False
 
@@ -58,13 +58,13 @@ class AsciiSnake:
         # end the game by showing ending window
         if killed and wall:
             msg = "HEAD TOUCHED THE WALL!!!"
-            self.open_close.end(self.score, self.setting.highest_score, msg)
+            self.open_close.close(self.score, self.setting.highest_score, msg)
         elif killed and not wall:
             msg = "HEAD TOUCHED THE BODY!!!"
-            self.open_close.end(self.score, self.setting.highest_score, msg)
+            self.open_close.close(self.score, self.setting.highest_score, msg)
         elif not killed:
             msg = "GAME QUITTED!!!"
-            self.open_close.end(self.score, self.setting.highest_score, msg)
+            self.open_close.close(self.score, self.setting.highest_score, msg)
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
