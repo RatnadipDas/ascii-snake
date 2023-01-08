@@ -26,7 +26,7 @@ class Setting:
         self.start_y = 0 # starting y position
 
         # minimum and maximum speed of the game
-        self.speed_min_max = (100, 150)
+        self.speed_min_max = (130, 160)
 
         # food initial position
         self.food = self.get_food()
